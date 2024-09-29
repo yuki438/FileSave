@@ -9,9 +9,14 @@ class UserSpace(models.Model):
 
 class File(models.Model):
     sub_space = models.ForeignKey(UserSpace, on_delete=models.CASCADE, related_name='file')
-    name = models.CharField(max_length=32, unique=True)
+    name = models.CharField(max_length=32)
     uploaded_file = models.FileField(upload_to='files/')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['sub_space', 'name'], name='unique_file_for_space')
+        ]
 
     def __str__(self):
         return self.name
