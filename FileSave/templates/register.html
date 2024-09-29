@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>register</h1>
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+        <h1>{{ form.login }}</h1>
+        <h1>{{ form.password }}</h1>
+        <button value="Register" name="button" type="submit">sign up</button>
+    </form>
+    <br>
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+        <button value="RedirectToLogin" name="button" type="submit">or login</button>
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+            <h3>{{ message }}</h3>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ login }}'s space:</h1>
+    {% if space %}
+        {% if files %}
+            <h2>Total files: {{ total_files }}</h2>
+            <h2>Filter:</h2>
+            <form method="get">
+                {% csrf_token %}
+                {{ form2.filter }}
+                <button value="ChooseFilter" name="button" type="submit">ok</button>
+            </form>
+            <ul>
+                {% for file in files %}
+                    <li>
+                        <a href="{{ file.uploaded_file.url }}" download="{{ file.name }}">{{ file.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>No files found</h3>
+        {% endif %}
+        <h2>Upload file:</h2>
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            {% csrf_token %}
+            {{ form1.uploaded_file }}
+            <h3>{{ form1.name }}</h3>
+            <button value="AddFile" name="button" type="submit">add</button>
+        </form>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <button value="CreateSpace" name="button" type="submit">create space</button>
+        </form>
+    {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            <h3>{{ message }}</h3>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

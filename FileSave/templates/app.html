@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>this app</h1>
+    <h1>{{ login }}</h1>
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+        <button value="RedirectToFiles" name="button" type="submit">Files</button>
+    </form>
+</body>
+</html>
